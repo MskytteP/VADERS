@@ -13,7 +13,7 @@ This repository contains the source code used to generate the simulations presen
 ### vaders_main
 
 Input:
-- Ratio Lambda^*_res/v^*_dep (dimensionless resuspension-rate coefficient divided by dimensionless deposition velocity).
+- Ratio Lambda*_res/v*_dep (dimensionless resuspension-rate coefficient divided by dimensionless deposition velocity).
 
 Output:
 - Air-clearance times for selected Peclet numbers and surface-inactivation rates.
@@ -24,7 +24,7 @@ Description:
 ### vaders_var_diff
 
 Input:
-- Ratio Lambda^*_res/v^*_dep.
+- Ratio Lambda*_res/v*_dep.
 
 Output:
 - Air-clearance times for selected Peclet numbers and surface-inactivation rates.
@@ -64,7 +64,7 @@ Output:
 - Mass-conservation verification of the full model.
 
 Input:
-- Ratio Lambda^*_res/v^*_dep.
+- Ratio Lambda*_res/v*_dep.
 
 Output:
 - total, and initial mass in system with respect to time
