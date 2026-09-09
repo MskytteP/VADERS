@@ -1,4 +1,5 @@
 # VADERS
+Current release: v1.0.0
 
 **Vertical Atmospheric Dispersion with dEposition, Resuspension, and Surface Inactivation**
 
