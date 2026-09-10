@@ -70,6 +70,10 @@ Input:
 Output:
 - total, and initial mass in system with respect to time
 
+### Plots_GMD
+
+Contains data and scripts used for specific figures. 
+
 ## Running the code
 
 All the scripts are run as functions which can be included in ensemble runs for creating figures for different input arguments.
