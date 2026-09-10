@@ -34,9 +34,11 @@ dz = z(2)-z(1);   % nondimensionalization
 %%% Surface dynamics parameters %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 v_dep_star = v_dep*L/(dz*L*v_set);
-lambda_r = v_dep_star*frac/(dz*L); % it is lambda^*_r: frac is the argument in function (Lambda^*_res/v^*_dep)
-frac_show = lambda_r/v_dep_star*dz*L
+lambda_star = v_dep_star*frac; % it is lambda^*_r: frac is the argument in function (Lambda^*_res/v^*_dep)
+lambda_res = lambda_star*v_set/L; % Resuspension rate [1/s]
 
 alpha_arr = [0 5e-6 5e-5 5e-4 5e-3]; % inactivation rate constants [1/s]
 
@@ -83,15 +85,16 @@ for h = 1:length(alpha_arr)
     dt = gamma * dt_max
     b_s = 0;    % accounting removal of material from inactivation
     add_surf = v_dep_star
-    resuspension = lambda_r
+    resuspension = lambda_star
     removal = alpha*L/v_set;    % alpha^*
 
     pe = Pe_arr(j)
     total_mass = mass_ini
-    t_arr = []; % zeros(Nt,1);
-    as_arr = [];  % zeros(Nt,1);
+    t_arr = [];
+    as_arr = [];
     bs_arr = [];
-    Mass_arr = [];  % zeros(Nt,1);
+    Mass_arr = [];
+    air_mass_arr = [];
 
     Flux_top_arr = [];
     Flux_air_arr = [];
@@ -148,6 +151,7 @@ for h = 1:length(alpha_arr)
         t_arr(o) = k*dt;
         as_arr(o) = a_s;
         Mass_arr(o) = total_mass;
+        air_mass_arr(o) = mass_air;
         Flux_top_arr(o) = Flux_top;
         Flux_air_arr(o) = Flux_air;
         Flux_surf_arr(o) = Flux_surf;
@@ -200,6 +204,7 @@ for h = 1:length(alpha_arr)
     Flux_surf_cell{j,h} = Flux_surf_arr;
     as_cell{j,h} = as_arr;
     mass_cell{j,h} = Mass_arr;
+    air_mass_cell{j,h} = air_mass_arr;
 
     t_cell{j,h} = t_arr;
 
@@ -207,7 +212,7 @@ end
 
 end
     savefil = sprintf("results/ADE1d_var_alpha_%d.mat",frac);
-    save(savefil, "Pe_arr", "t_crit_num","v_set","L","D","lambda_r","dz","v_dep","v_dep_star","alpha_arr","t_cell","Flux_top_cell", "Flux_air_cell","Flux_surf_cell")
+    save(savefil, "Pe_arr", "t_crit_num","v_set","L","D","lambda_star","lambda_res","dz","v_dep","v_dep_star","alpha_arr","t_cell","Flux_top_cell", "Flux_air_cell","Flux_surf_cell","mass_cell","as_cell","air_mass_cell");
 end
 
 

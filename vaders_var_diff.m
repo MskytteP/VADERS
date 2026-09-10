@@ -1,5 +1,5 @@
 
-function savefil = vaders_var_diffclo(frac)
+function savefil = vaders_var_diff(frac)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This script creates the figure with different air-clearance times
@@ -29,7 +29,10 @@ Kz = kappa*u_fric*z;
 z = z/L;        % nondimensionalization
 dz = z(2)-z(1);   % nondimensionalization
 
-lambda_r = v_dep*frac/(dz*L); % resuspension rate [1/s]
+v_dep_star = v_dep*L/(dz*L*v_set);
+lambda_star = v_dep_star*frac; % it is lambda^*_r: frac is the argument in function (Lambda^*_res/v^*_dep)
+lambda_res = lambda_star*v_set/L; % Resuspension rate [1/s]
+
 alpha_arr = [0 5e-6 5e-5 5e-4 5e-3];  % inactivation rate constants [1/s]
 
 
@@ -72,8 +75,8 @@ for h = 1:length(alpha_arr)
     gamma = 0.3;
     dt = gamma * dt_max
     b_s = 0;    % accounting for removal of material
-    add_surf = v_dep*L/(dz*L*v_set) % v^*_dep
-    resuspension = lambda_r*L/v_set % lambda^*_res
+    add_surf = v_dep_star % v^*_dep
+    resuspension = lambda_star % lambda^*_res
     removal = alpha*L/v_set;  % alpha^*
 
     pe = Pe0(j)
@@ -193,8 +196,8 @@ for h = 1:length(alpha_arr)
 end
 
 end
-    savefil = sprintf("results/ADE1d_var_diff_%d.mat",frac);
-    save(savefil, "Pe_z","Pe0","Kz", "t_crit_num","v_set","L","lambda_r","dz","v_dep","alpha_arr","t_cell","Flux_top_cell", "Flux_air_cell","Flux_surf_cell","as_cell","mass_cell")
+    savefil = sprintf("results/ADE1d_var_diff_%g.mat",frac);
+    save(savefil, "Pe_z","Pe0","Kz", "t_crit_num","v_set","L","lambda_res","dz","v_dep","alpha_arr","t_cell","Flux_top_cell", "Flux_air_cell","Flux_surf_cell","as_cell","mass_cell")
 end
 
 
