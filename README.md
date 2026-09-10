@@ -74,3 +74,9 @@ Output:
 
 All the scripts are run as functions which can be included in ensemble runs for creating figures for different input arguments.
 
+- Flux exchange in the lower boundary can be investigated through 'Flux_air_cell' and 'Flux_surf_cell' from vaders_main.
+- Airborne mass can be analyzed from 'air_mass_cell' in vaders_main.
+- Air-clearance times can be analyzed from 't_crit_num' in vaders_main, vaders_var_diff and vaders_var_lambda.
+
+
+
