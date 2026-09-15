@@ -65,14 +65,6 @@ end
 
 plot(t_cell{1},a_crit_arr,"--k")
 
-yl = ylim();
-
-line([t_crit_rob(2) t_crit_rob(2)],yl, ...
-    "color","r","linewidth",2);
-
-line([t_crit_dir(2) t_crit_dir(2)],yl, ...
-    "color","b","linewidth",2);
-
 legend(handles,labels, ...
        "interpreter","latex", ...
        "fontsize",16)
@@ -105,13 +97,16 @@ hold on
 
 plot(t_cell{1},a_crit_arr,"--k")
 
-yl = ylim();
+ax = axis;      % returns [xmin xmax ymin ymax]
+#x_offset = (ax(2)-ax(1)) * 0.01;  % small offset from y-axis (2% of x-range)
+#x_text = ax(1) + x_offset;        % position slightly right of y-axis
+y_offset = (ax(4)-ax(3)) * 0.02;
+y_text = ax(3) + y_offset;
 
-line([t_crit_rob(2) t_crit_rob(2)],yl, ...
-    "color","r","linewidth",2);
+plot(t_crit_rob(2),a_crit_arr,'ro', 'MarkerFaceColor', 'r','MarkerSize',8);
+tp = text(t_crit_rob(2)+0.1,y_text, '$t^{(ii)}_c$', 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right','interpreter','latex');
+set(tp,"Fontsize",20)
 
-line([t_crit_dir(2) t_crit_dir(2)],yl, ...
-    "color","b","linewidth",2);
 
 legend(sprintf('$\\Lambda_{\\textrm{res}}^*/v_{\\textrm{dep}}^* = %g$', ...
        frac(3)), ...
@@ -130,7 +125,7 @@ title("(b)", ...
       "fontsize",20)
 
 xlim([0.4 3])
-ylim([0 0.5])
+ylim([0 0.1])
 
 set(gca,"fontsize",18)
 
